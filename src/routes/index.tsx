@@ -217,12 +217,12 @@ function Index() {
         </Reveal>
         <div className="scene-3d mt-10 grid gap-px rounded-xl bg-border sm:grid-cols-2 lg:grid-cols-3">
           {SKILLS.map((s, i) => (
-            <Reveal key={s.code} variant="scale" delay={i * 70} className="contents">
+            <Reveal key={s.code} variant="scale" delay={i * 70} className="h-full">
             <Tilt
               as="article"
               max={9}
               lift={16}
-              className="flex min-h-40 flex-col justify-between bg-card p-5 hover:bg-background hover:shadow-2xl"
+              className="flex h-full min-h-40 flex-col justify-between bg-card p-5 hover:bg-background hover:shadow-2xl"
             >
               <span className="text-[10px] text-muted-foreground">{s.code}</span>
               <div className="layer-lift">
@@ -232,12 +232,12 @@ function Index() {
             </Tilt>
             </Reveal>
           ))}
-          <Reveal variant="scale" delay={SKILLS.length * 70} className="contents">
+          <Reveal variant="scale" delay={SKILLS.length * 70} className="h-full">
           <Tilt
             as="article"
             max={9}
             lift={16}
-            className="relative flex min-h-40 items-end overflow-hidden bg-ink p-5"
+            className="relative flex h-full min-h-40 items-end overflow-hidden bg-ink p-5"
           >
             <img
               src={dither}
@@ -270,12 +270,12 @@ function Index() {
         </Reveal>
         <div className="scene-3d mt-12 grid gap-px rounded-xl bg-ink-foreground/12 lg:grid-cols-2">
           {PROJECTS.map((p, i) => (
-            <Reveal key={p.id} variant={i % 2 === 0 ? "left" : "right"} delay={(i % 2) * 90} className="contents">
+            <Reveal key={p.id} variant={i % 2 === 0 ? "left" : "right"} delay={(i % 2) * 90} className="h-full">
             <Tilt
               as="article"
               max={7}
               lift={14}
-              className="group bg-ink p-7 hover:bg-ink-foreground/[0.05] hover:shadow-[0_30px_60px_-30px_rgba(0,0,0,0.9)]"
+              className="group h-full bg-ink p-7 hover:bg-ink-foreground/[0.05] hover:shadow-[0_30px_60px_-30px_rgba(0,0,0,0.9)]"
             >
               <div className="flex items-baseline justify-between layer-lift">
                 <span className="text-2xl font-light text-ink-foreground/25">{p.id}</span>
@@ -321,7 +321,7 @@ function Index() {
             { label: "LinkedIn", value: "linkedin.com/in/karthikeyan-y", href: "https://linkedin.com/in/karthikeyan-y" },
             { label: "GitHub", value: "github.com/karthikeyan-y", href: "https://github.com/karthikeyan-y" },
           ].map((c, i) => (
-            <Reveal key={c.label} variant="scale" delay={i * 100} className="contents">
+            <Reveal key={c.label} variant="scale" delay={i * 100} className="h-full">
             <Tilt
               as="a"
               href={c.href}
@@ -329,7 +329,7 @@ function Index() {
               rel="noreferrer"
               max={8}
               lift={14}
-              className="flex min-h-32 flex-col justify-between bg-card p-5 hover:bg-secondary hover:shadow-xl"
+              className="flex h-full min-h-32 flex-col justify-between bg-card p-5 hover:bg-secondary hover:shadow-xl"
             >
               <span className="text-[10px] text-muted-foreground">{c.label}</span>
               <span className="layer-lift flex items-center gap-2.5 text-[11px]">
