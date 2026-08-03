@@ -2,16 +2,16 @@ import { useRef, type ReactNode } from "react";
 
 type Props = {
   children: ReactNode;
-  className?: string;
+  className?: string | undefined;
   /** max rotation in degrees */
   max?: number;
   /** lift toward viewer in px on hover */
   lift?: number;
   as?: "div" | "article" | "a" | "section";
-  href?: string;
-  target?: string;
-  rel?: string;
-  id?: string;
+  href?: string | undefined;
+  target?: string | undefined;
+  rel?: string | undefined;
+  id?: string | undefined;
 };
 
 export function Tilt({
