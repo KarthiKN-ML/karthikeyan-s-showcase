@@ -205,7 +205,7 @@ function Index() {
         {/* Soft vignette */}
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink via-ink/25 to-ink/50" />
 
-        {/* Centered focus skills — compact size matching design reference */}
+        {/* Centered focus skills */}
         <div className="relative z-10 flex flex-1 flex-col items-center justify-center px-6 pt-20 text-center">
           <p className="eyebrow animate-rise mb-4 text-ink-foreground/50">Karthikeyan Y</p>
           <h1
@@ -222,21 +222,6 @@ function Index() {
             I build models and AI systems that turn raw data into decisions — from classical ML to
             LLM-powered products.
           </p>
-          <div className="animate-rise mt-8 flex gap-3">
-            <a
-              href="#projects"
-              className="btn-press flex items-center gap-2.5 rounded-xl bg-ink-foreground p-1.5 pr-5 text-[11px] font-medium text-ink shadow-xl shadow-black/30"
-            >
-              <Arrow />
-              View projects
-            </a>
-            <a
-              href="#contact"
-              className="btn-press flex items-center gap-2 rounded-xl border border-ink-foreground/25 bg-ink/40 px-4 py-2.5 text-[11px] font-medium text-ink-foreground backdrop-blur-sm"
-            >
-              Contact
-            </a>
-          </div>
         </div>
 
         {/* Scroll indicator only */}
@@ -329,7 +314,7 @@ function Index() {
             >
               <img
                 src={dither}
-                alt="Dithered halftone texture"
+                alt="Dithered haphtone texture"
                 width={1024}
                 height={768}
                 loading="lazy"
