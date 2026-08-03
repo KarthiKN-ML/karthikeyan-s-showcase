@@ -212,12 +212,14 @@ function Index() {
 
       {/* SKILLS */}
       <section id="skills" className="border-t border-border bg-secondary px-6 py-20 sm:px-10">
-        <p className="eyebrow">Skills</p>
+        <Reveal as="p" className="eyebrow">
+          Skills
+        </Reveal>
         <div className="scene-3d mt-10 grid gap-px rounded-xl bg-border sm:grid-cols-2 lg:grid-cols-3">
-          {SKILLS.map((s) => (
+          {SKILLS.map((s, i) => (
+            <Reveal key={s.code} variant="scale" delay={i * 70} className="contents">
             <Tilt
               as="article"
-              key={s.code}
               max={9}
               lift={16}
               className="flex min-h-40 flex-col justify-between bg-card p-5 hover:bg-background hover:shadow-2xl"
@@ -228,7 +230,9 @@ function Index() {
                 <p className="mt-2 text-[10px] leading-relaxed text-muted-foreground">{s.note}</p>
               </div>
             </Tilt>
+            </Reveal>
           ))}
+          <Reveal variant="scale" delay={SKILLS.length * 70} className="contents">
           <Tilt
             as="article"
             max={9}
@@ -241,26 +245,34 @@ function Index() {
               width={1024}
               height={768}
               loading="lazy"
-              className="absolute inset-0 size-full object-cover opacity-70"
+              className="animate-glow absolute inset-0 size-full object-cover"
             />
             <p className="layer-lift relative text-[10px] leading-relaxed text-ink-foreground">
               Always learning — currently deepening LLM evaluation and agentic workflows.
             </p>
           </Tilt>
+          </Reveal>
         </div>
       </section>
 
       {/* PROJECTS */}
       <section id="projects" className="bg-ink px-6 py-24 sm:px-10">
-        <p className="eyebrow text-ink-foreground/50">Projects</p>
-        <h2 className="mt-5 max-w-2xl text-2xl leading-snug font-light tracking-tight text-ink-foreground sm:text-[1.9rem]">
+        <Reveal as="p" className="eyebrow text-ink-foreground/50">
+          Projects
+        </Reveal>
+        <Reveal
+          as="h2"
+          variant="blur"
+          delay={100}
+          className="mt-5 max-w-2xl text-2xl leading-snug font-light tracking-tight text-ink-foreground sm:text-[1.9rem]"
+        >
           Selected machine learning work
-        </h2>
+        </Reveal>
         <div className="scene-3d mt-12 grid gap-px rounded-xl bg-ink-foreground/12 lg:grid-cols-2">
-          {PROJECTS.map((p) => (
+          {PROJECTS.map((p, i) => (
+            <Reveal key={p.id} variant={i % 2 === 0 ? "left" : "right"} delay={(i % 2) * 90} className="contents">
             <Tilt
               as="article"
-              key={p.id}
               max={7}
               lift={14}
               className="group bg-ink p-7 hover:bg-ink-foreground/[0.05] hover:shadow-[0_30px_60px_-30px_rgba(0,0,0,0.9)]"
@@ -285,25 +297,33 @@ function Index() {
                 View code
               </a>
             </Tilt>
+            </Reveal>
           ))}
         </div>
       </section>
 
       {/* CONTACT */}
       <section id="contact" className="border-t border-border bg-background px-6 py-24 sm:px-10">
-        <p className="eyebrow">Contact</p>
-        <h2 className="mt-5 max-w-3xl text-2xl leading-snug font-light tracking-tight sm:text-[2rem]">
+        <Reveal as="p" className="eyebrow">
+          Contact
+        </Reveal>
+        <Reveal
+          as="h2"
+          variant="blur"
+          delay={100}
+          className="mt-5 max-w-3xl text-2xl leading-snug font-light tracking-tight sm:text-[2rem]"
+        >
           Open to ML / AI roles and collaborations
-        </h2>
+        </Reveal>
         <div className="scene-3d mt-10 grid gap-px rounded-xl bg-border sm:grid-cols-3">
           {[
             { label: "Email", value: "karthikeyan.y@email.com", href: "mailto:karthikeyan.y@email.com" },
             { label: "LinkedIn", value: "linkedin.com/in/karthikeyan-y", href: "https://linkedin.com/in/karthikeyan-y" },
             { label: "GitHub", value: "github.com/karthikeyan-y", href: "https://github.com/karthikeyan-y" },
-          ].map((c) => (
+          ].map((c, i) => (
+            <Reveal key={c.label} variant="scale" delay={i * 100} className="contents">
             <Tilt
               as="a"
-              key={c.label}
               href={c.href}
               target={c.href.startsWith("http") ? "_blank" : undefined}
               rel="noreferrer"
@@ -317,14 +337,18 @@ function Index() {
                 {c.value}
               </span>
             </Tilt>
+            </Reveal>
           ))}
         </div>
-        <footer className="mt-16 flex flex-wrap items-center justify-between gap-4 border-t border-border pt-6 text-[10px] text-muted-foreground">
+        <Reveal
+          as="footer"
+          className="mt-16 flex flex-wrap items-center justify-between gap-4 border-t border-border pt-6 text-[10px] text-muted-foreground"
+        >
           <span className="flex items-center gap-2">
             <span className="signature text-xl text-foreground">Karthikeyan Y</span> — ML / AI Engineer
           </span>
           <span>© {new Date().getFullYear()}</span>
-        </footer>
+        </Reveal>
       </section>
     </main>
   );
