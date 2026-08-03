@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Tilt, useParallax } from "@/components/Tilt";
 import heroOrb from "@/assets/hero-orb.jpg";
 import flower from "@/assets/flower-mono.jpg";
 import dither from "@/assets/dither.jpg";
@@ -92,7 +93,7 @@ function Nav() {
   return (
     <header className="fixed inset-x-0 top-0 z-50 flex items-center justify-between px-5 py-4">
       <a href="#top" className="flex items-center gap-2 text-ink-foreground mix-blend-difference">
-        <span className="grid size-7 place-items-center rounded-sm bg-ink-foreground text-[11px] font-bold text-ink">
+        <span className="grid size-6 place-items-center rounded-sm bg-ink-foreground text-[10px] font-bold text-ink">
           KY
         </span>
       </a>
@@ -101,7 +102,7 @@ function Nav() {
           <a
             key={n.href}
             href={n.href}
-            className="rounded-full px-3.5 py-1.5 text-[11px] tracking-wide text-ink-foreground/65 transition-colors hover:bg-ink-foreground hover:text-ink"
+            className="rounded-full px-3 py-1 text-[10px] tracking-wide text-ink-foreground/65 transition-colors hover:bg-ink-foreground hover:text-ink"
           >
             {n.label}
           </a>
@@ -109,7 +110,7 @@ function Nav() {
       </nav>
       <a
         href="#contact"
-        className="flex items-center gap-2 rounded-lg bg-ink/85 p-1 pr-3.5 text-[11px] text-ink-foreground backdrop-blur"
+        className="flex items-center gap-2 rounded-lg bg-ink/85 p-1 pr-3 text-[10px] text-ink-foreground backdrop-blur"
       >
         <Arrow />
         Get in touch
@@ -119,35 +120,51 @@ function Nav() {
 }
 
 function Index() {
+  const parallax = useParallax();
   return (
     <main id="top">
       {/* HERO */}
       <Nav />
-      <section className="relative flex min-h-screen flex-col justify-between overflow-hidden bg-ink">
+      <section
+        ref={parallax.ref}
+        onMouseMove={parallax.onMouseMove}
+        onMouseLeave={parallax.onMouseLeave}
+        className="scene-3d relative flex min-h-screen flex-col justify-between overflow-hidden bg-ink [--mx:0] [--my:0]"
+      >
         <img
           src={heroOrb}
           alt="Silhouette facing a glowing ring of light"
           width={1920}
           height={1088}
-          className="absolute inset-0 size-full object-cover opacity-90"
+          className="absolute inset-0 size-full scale-110 object-cover opacity-90 transition-transform duration-300 ease-out"
+          style={{
+            transform:
+              "scale(1.12) translate3d(calc(var(--mx) * -22px), calc(var(--my) * -22px), 0)",
+          }}
         />
-        <div className="relative flex flex-1 flex-col items-center justify-center px-6 pt-24 text-center">
-          <p className="eyebrow animate-rise text-ink-foreground/70">
+        <div
+          className="relative flex flex-1 flex-col items-center justify-center px-6 pt-24 text-center transition-transform duration-300 ease-out [transform-style:preserve-3d]"
+          style={{
+            transform:
+              "rotateX(calc(var(--my) * -7deg)) rotateY(calc(var(--mx) * 9deg)) translateZ(40px)",
+          }}
+        >
+          <p className="eyebrow animate-rise text-ink-foreground/60">
             Machine Learning · Deep Learning · Generative AI
           </p>
-          <h1 className="animate-rise mt-6 text-[13vw] leading-[0.95] font-light tracking-tight text-ink-foreground sm:text-[8vw] lg:text-[6.5rem]">
+          <h1 className="signature animate-rise mt-4 text-[16vw] text-ink-foreground drop-shadow-[0_12px_30px_rgba(0,0,0,0.6)] sm:text-[10vw] lg:text-[7rem]">
             Karthikeyan Y
           </h1>
         </div>
-        <div className="relative flex flex-col gap-6 px-6 pb-8 sm:flex-row sm:items-end sm:justify-between">
-          <p className="max-w-xs text-xs leading-relaxed text-ink-foreground/70">
+        <div className="relative flex flex-col gap-5 px-6 pb-8 sm:flex-row sm:items-end sm:justify-between">
+          <p className="max-w-xs text-[11px] leading-relaxed text-ink-foreground/70">
             I build models and AI systems that turn raw data into decisions — from classical ML to
             LLM-powered products.
           </p>
           <div className="flex gap-2">
             <a
               href="#projects"
-              className="flex items-center gap-2.5 rounded-lg bg-ink-foreground p-1 pr-4 text-xs font-medium text-ink"
+              className="flex items-center gap-2.5 rounded-lg bg-ink-foreground p-1 pr-4 text-[11px] font-medium text-ink transition-transform hover:-translate-y-0.5"
             >
               <Arrow />
               View projects
@@ -167,12 +184,13 @@ function Index() {
           className="pointer-events-none ml-auto w-[70%] max-w-2xl object-contain mix-blend-multiply"
         />
         <div className="grid gap-12 px-6 pt-4 pb-24 sm:px-10 lg:grid-cols-2 lg:gap-24">
-          <h2 className="text-3xl leading-snug font-light tracking-tight sm:text-[2.6rem]">
-            Karthikeyan Y. I turn{" "}
+          <h2 className="text-2xl leading-snug font-light tracking-tight sm:text-[1.9rem]">
+            <span className="signature mr-2 text-[2.6rem] sm:text-[3.2rem]">Karthikeyan Y</span>
+            <br />I turn{" "}
             <span className="text-muted-foreground">messy data</span> into models that hold up in
             production
           </h2>
-          <p className="self-end text-right text-xl leading-snug font-light tracking-tight sm:text-[1.6rem]">
+          <p className="self-end text-right text-base leading-snug font-light tracking-tight sm:text-[1.15rem]">
             Python and SQL as the foundation, strong <span className="text-muted-foreground">DSA</span>{" "}
             fundamentals, and hands-on work across ML, deep learning, NLP and generative AI.
           </p>
@@ -182,20 +200,28 @@ function Index() {
       {/* SKILLS */}
       <section id="skills" className="border-t border-border bg-secondary px-6 py-20 sm:px-10">
         <p className="eyebrow">Skills</p>
-        <div className="mt-10 grid gap-px overflow-hidden rounded-xl bg-border sm:grid-cols-2 lg:grid-cols-3">
+        <div className="scene-3d mt-10 grid gap-px rounded-xl bg-border sm:grid-cols-2 lg:grid-cols-3">
           {SKILLS.map((s) => (
-            <article
+            <Tilt
+              as="article"
               key={s.code}
-              className="flex min-h-44 flex-col justify-between bg-card p-6 transition-colors hover:bg-background"
+              max={9}
+              lift={16}
+              className="flex min-h-40 flex-col justify-between bg-card p-5 hover:bg-background hover:shadow-2xl"
             >
-              <span className="text-xs text-muted-foreground">{s.code}</span>
-              <div>
-                <h3 className="text-2xl font-light tracking-tight">{s.name}</h3>
-                <p className="mt-2 text-[11px] leading-relaxed text-muted-foreground">{s.note}</p>
+              <span className="text-[10px] text-muted-foreground">{s.code}</span>
+              <div className="layer-lift">
+                <h3 className="text-lg font-light tracking-tight">{s.name}</h3>
+                <p className="mt-2 text-[10px] leading-relaxed text-muted-foreground">{s.note}</p>
               </div>
-            </article>
+            </Tilt>
           ))}
-          <article className="relative flex min-h-44 items-end overflow-hidden bg-ink p-6">
+          <Tilt
+            as="article"
+            max={9}
+            lift={16}
+            className="relative flex min-h-40 items-end overflow-hidden bg-ink p-5"
+          >
             <img
               src={dither}
               alt="Dithered halftone texture"
@@ -204,40 +230,48 @@ function Index() {
               loading="lazy"
               className="absolute inset-0 size-full object-cover opacity-70"
             />
-            <p className="relative text-xs leading-relaxed text-ink-foreground">
+            <p className="layer-lift relative text-[10px] leading-relaxed text-ink-foreground">
               Always learning — currently deepening LLM evaluation and agentic workflows.
             </p>
-          </article>
+          </Tilt>
         </div>
       </section>
 
       {/* PROJECTS */}
       <section id="projects" className="bg-ink px-6 py-24 sm:px-10">
         <p className="eyebrow text-ink-foreground/50">Projects</p>
-        <h2 className="mt-6 max-w-2xl text-3xl leading-snug font-light tracking-tight text-ink-foreground sm:text-[2.6rem]">
+        <h2 className="mt-5 max-w-2xl text-2xl leading-snug font-light tracking-tight text-ink-foreground sm:text-[1.9rem]">
           Selected machine learning work
         </h2>
-        <div className="mt-14 grid gap-px overflow-hidden rounded-xl bg-ink-foreground/12 lg:grid-cols-2">
+        <div className="scene-3d mt-12 grid gap-px rounded-xl bg-ink-foreground/12 lg:grid-cols-2">
           {PROJECTS.map((p) => (
-            <article key={p.id} className="group bg-ink p-8 transition-colors hover:bg-ink-foreground/[0.04]">
-              <div className="flex items-baseline justify-between">
-                <span className="text-4xl font-light text-ink-foreground/25">{p.id}</span>
-                <span className="text-[11px] text-accent">{p.stack}</span>
+            <Tilt
+              as="article"
+              key={p.id}
+              max={7}
+              lift={14}
+              className="group bg-ink p-7 hover:bg-ink-foreground/[0.05] hover:shadow-[0_30px_60px_-30px_rgba(0,0,0,0.9)]"
+            >
+              <div className="flex items-baseline justify-between layer-lift">
+                <span className="text-2xl font-light text-ink-foreground/25">{p.id}</span>
+                <span className="text-[10px] text-accent">{p.stack}</span>
               </div>
-              <h3 className="mt-8 text-2xl font-light tracking-tight text-ink-foreground">
+              <h3 className="mt-6 text-lg font-light tracking-tight text-ink-foreground">
                 {p.title}
               </h3>
-              <p className="mt-3 max-w-md text-xs leading-relaxed text-ink-foreground/60">{p.body}</p>
+              <p className="mt-3 max-w-md text-[11px] leading-relaxed text-ink-foreground/60">
+                {p.body}
+              </p>
               <a
                 href="https://github.com/karthikeyan-y"
                 target="_blank"
                 rel="noreferrer"
-                className="mt-6 inline-flex items-center gap-2 text-[11px] text-ink-foreground/70 transition-colors group-hover:text-ink-foreground"
+                className="mt-6 inline-flex items-center gap-2 text-[10px] text-ink-foreground/70 transition-colors group-hover:text-ink-foreground"
               >
                 <Arrow />
                 View code
               </a>
-            </article>
+            </Tilt>
           ))}
         </div>
       </section>
@@ -245,32 +279,37 @@ function Index() {
       {/* CONTACT */}
       <section id="contact" className="border-t border-border bg-background px-6 py-24 sm:px-10">
         <p className="eyebrow">Contact</p>
-        <h2 className="mt-6 max-w-3xl text-3xl leading-snug font-light tracking-tight sm:text-[3rem]">
+        <h2 className="mt-5 max-w-3xl text-2xl leading-snug font-light tracking-tight sm:text-[2rem]">
           Open to ML / AI roles and collaborations
         </h2>
-        <div className="mt-12 grid gap-px overflow-hidden rounded-xl bg-border sm:grid-cols-3">
+        <div className="scene-3d mt-10 grid gap-px rounded-xl bg-border sm:grid-cols-3">
           {[
             { label: "Email", value: "karthikeyan.y@email.com", href: "mailto:karthikeyan.y@email.com" },
             { label: "LinkedIn", value: "linkedin.com/in/karthikeyan-y", href: "https://linkedin.com/in/karthikeyan-y" },
             { label: "GitHub", value: "github.com/karthikeyan-y", href: "https://github.com/karthikeyan-y" },
           ].map((c) => (
-            <a
+            <Tilt
+              as="a"
               key={c.label}
               href={c.href}
               target={c.href.startsWith("http") ? "_blank" : undefined}
               rel="noreferrer"
-              className="flex min-h-36 flex-col justify-between bg-card p-6 transition-colors hover:bg-secondary"
+              max={8}
+              lift={14}
+              className="flex min-h-32 flex-col justify-between bg-card p-5 hover:bg-secondary hover:shadow-xl"
             >
-              <span className="text-xs text-muted-foreground">{c.label}</span>
-              <span className="flex items-center gap-2.5 text-sm">
+              <span className="text-[10px] text-muted-foreground">{c.label}</span>
+              <span className="layer-lift flex items-center gap-2.5 text-[11px]">
                 <Arrow />
                 {c.value}
               </span>
-            </a>
+            </Tilt>
           ))}
         </div>
-        <footer className="mt-16 flex flex-wrap items-center justify-between gap-4 border-t border-border pt-6 text-[11px] text-muted-foreground">
-          <span>Karthikeyan Y — ML / AI Engineer</span>
+        <footer className="mt-16 flex flex-wrap items-center justify-between gap-4 border-t border-border pt-6 text-[10px] text-muted-foreground">
+          <span className="flex items-center gap-2">
+            <span className="signature text-xl text-foreground">Karthikeyan Y</span> — ML / AI Engineer
+          </span>
           <span>© {new Date().getFullYear()}</span>
         </footer>
       </section>
