@@ -205,20 +205,20 @@ function Index() {
         {/* Soft vignette */}
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink via-ink/25 to-ink/50" />
 
-        {/* Centered focus skills */}
+        {/* Centered focus skills — compact size matching design reference */}
         <div className="relative z-10 flex flex-1 flex-col items-center justify-center px-6 pt-20 text-center">
-          <p className="eyebrow animate-rise mb-5 text-ink-foreground/50">Karthikeyan Y</p>
+          <p className="eyebrow animate-rise mb-4 text-ink-foreground/50">Karthikeyan Y</p>
           <h1
-            className="animate-rise max-w-5xl whitespace-nowrap text-[1.15rem] font-light leading-[1.2] tracking-tight text-ink-foreground drop-shadow-[0_8px_32px_rgba(0,0,0,0.5)] sm:text-[1.85rem] md:text-[2.35rem] lg:text-[2.85rem]"
+            className="animate-rise whitespace-nowrap text-[13px] font-normal tracking-[0.04em] text-ink-foreground/90 drop-shadow-[0_4px_16px_rgba(0,0,0,0.45)] sm:text-[15px] md:text-[16px]"
             style={{
               transform:
                 "rotateX(calc(var(--my) * -2deg)) rotateY(calc(var(--mx) * 2.5deg)) translateZ(24px)",
             }}
           >
-            Machine Learning<span className="mx-2 text-ink-foreground/30">·</span>Deep Learning
-            <span className="mx-2 text-ink-foreground/30">·</span>Generative AI
+            Machine Learning<span className="mx-2.5 text-ink-foreground/35">·</span>Deep Learning
+            <span className="mx-2.5 text-ink-foreground/35">·</span>Generative AI
           </h1>
-          <p className="animate-rise mt-6 max-w-md text-[12px] leading-relaxed text-ink-foreground/60 sm:text-[13px]">
+          <p className="animate-rise mt-5 max-w-md text-[12px] leading-relaxed text-ink-foreground/60 sm:text-[13px]">
             I build models and AI systems that turn raw data into decisions — from classical ML to
             LLM-powered products.
           </p>
