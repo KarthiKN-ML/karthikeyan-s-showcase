@@ -91,6 +91,31 @@ function Arrow() {
   );
 }
 
+function IconEmail({ className = "size-5" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.75} className={className}>
+      <rect x="3" y="5" width="18" height="14" rx="2" />
+      <path d="M3 7l9 6 9-6" />
+    </svg>
+  );
+}
+
+function IconLinkedIn({ className = "size-5" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
+      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+    </svg>
+  );
+}
+
+function IconGitHub({ className = "size-5" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
+      <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" />
+    </svg>
+  );
+}
+
 function Nav() {
   const [scrolled, setScrolled] = useState(false);
 
@@ -170,31 +195,29 @@ function Index() {
         />
 
         {/* Soft vignette */}
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink via-ink/20 to-ink/40" />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink via-ink/25 to-ink/50" />
 
-        <div className="flex-1" />
-
-        <div
-          className="relative z-10 flex flex-col gap-8 px-6 pb-16 transition-transform duration-500 ease-out sm:flex-row sm:items-end sm:justify-between sm:px-10 lg:px-14 [transform-style:preserve-3d]"
-          style={{
-            transform:
-              "rotateX(calc(var(--my) * -3.5deg)) rotateY(calc(var(--mx) * 4.5deg)) translateZ(36px)",
-          }}
-        >
-          <div className="max-w-xl">
-            <p className="eyebrow animate-rise text-ink-foreground/55">
-              Machine Learning · Deep Learning · Generative AI
-            </p>
-            <h1 className="signature animate-sign mt-2 pb-1 text-[2.6rem] leading-[1.05] text-ink-foreground drop-shadow-[0_12px_40px_rgba(0,0,0,0.55)] sm:text-[3.4rem] lg:text-[3.8rem]">
-              Karthikeyan Y
-            </h1>
-            <p className="animate-rise mt-4 max-w-sm text-[12px] leading-relaxed text-ink-foreground/65 sm:text-[13px]">
-              I build models and AI systems that turn raw data into decisions — from classical ML to
-              LLM-powered products.
-            </p>
-          </div>
-
-          <div className="animate-rise flex shrink-0 gap-3">
+        {/* Centered focus skills */}
+        <div className="relative z-10 flex flex-1 flex-col items-center justify-center px-6 pt-20 text-center">
+          <p className="eyebrow animate-rise mb-5 text-ink-foreground/50">Karthikeyan Y</p>
+          <h1
+            className="animate-rise max-w-4xl text-[1.65rem] font-light leading-[1.2] tracking-tight text-ink-foreground drop-shadow-[0_8px_32px_rgba(0,0,0,0.5)] sm:text-[2.4rem] md:text-[2.85rem] lg:text-[3.25rem]"
+            style={{
+              transform:
+                "rotateX(calc(var(--my) * -2deg)) rotateY(calc(var(--mx) * 2.5deg)) translateZ(24px)",
+            }}
+          >
+            <span className="block sm:inline">Machine Learning</span>
+            <span className="mx-2 hidden text-ink-foreground/30 sm:inline">·</span>
+            <span className="block sm:inline">Deep Learning</span>
+            <span className="mx-2 hidden text-ink-foreground/30 sm:inline">·</span>
+            <span className="block sm:inline">Generative AI</span>
+          </h1>
+          <p className="animate-rise mt-6 max-w-md text-[12px] leading-relaxed text-ink-foreground/60 sm:text-[13px]">
+            I build models and AI systems that turn raw data into decisions — from classical ML to
+            LLM-powered products.
+          </p>
+          <div className="animate-rise mt-8 flex gap-3">
             <a
               href="#projects"
               className="btn-press flex items-center gap-2.5 rounded-xl bg-ink-foreground p-1.5 pr-5 text-[11px] font-medium text-ink shadow-xl shadow-black/30"
@@ -202,15 +225,24 @@ function Index() {
               <Arrow />
               View projects
             </a>
+            <a
+              href="#contact"
+              className="btn-press flex items-center gap-2 rounded-xl border border-ink-foreground/25 bg-ink/40 px-4 py-2.5 text-[11px] font-medium text-ink-foreground backdrop-blur-sm"
+            >
+              Contact
+            </a>
           </div>
         </div>
 
-        {/* Scroll indicator */}
-        <div className="absolute bottom-6 left-1/2 z-10 hidden -translate-x-1/2 flex-col items-center gap-2 sm:flex">
-          <span className="text-[9px] tracking-[0.25em] text-ink-foreground/40 uppercase">
-            Scroll
-          </span>
-          <div className="h-8 w-px animate-pulse bg-gradient-to-b from-ink-foreground/50 to-transparent" />
+        {/* Bottom signature line */}
+        <div className="relative z-10 flex items-center justify-between px-6 pb-10 sm:px-10 lg:px-14">
+          <span className="signature text-2xl text-ink-foreground/80 sm:text-3xl">Karthikeyan Y</span>
+          <div className="hidden items-center gap-2 sm:flex">
+            <span className="text-[9px] tracking-[0.25em] text-ink-foreground/35 uppercase">
+              Scroll
+            </span>
+            <div className="h-6 w-px animate-pulse bg-gradient-to-b from-ink-foreground/40 to-transparent" />
+          </div>
         </div>
       </section>
 
@@ -387,36 +419,47 @@ function Index() {
               label: "Email",
               value: "karthikeyan.y@email.com",
               href: "mailto:karthikeyan.y@email.com",
+              icon: IconEmail,
             },
             {
               label: "LinkedIn",
               value: "linkedin.com/in/karthikeyan-y",
               href: "https://linkedin.com/in/karthikeyan-y",
+              icon: IconLinkedIn,
             },
             {
               label: "GitHub",
               value: "github.com/karthikeyan-y",
               href: "https://github.com/karthikeyan-y",
+              icon: IconGitHub,
             },
-          ].map((c, i) => (
-            <Reveal key={c.label} variant="scale" delay={i * 90} className="h-full">
-              <Tilt
-                as="a"
-                href={c.href}
-                target={c.href.startsWith("http") ? "_blank" : undefined}
-                rel="noreferrer"
-                max={7}
-                lift={16}
-                className="group flex h-full min-h-36 flex-col justify-between bg-card p-6 transition-colors hover:bg-secondary"
-              >
-                <span className="text-[10px] tracking-wider text-muted-foreground">{c.label}</span>
-                <span className="layer-lift flex items-center gap-2.5 text-[12px] transition-colors group-hover:text-accent">
-                  <Arrow />
-                  {c.value}
-                </span>
-              </Tilt>
-            </Reveal>
-          ))}
+          ].map((c, i) => {
+            const Icon = c.icon;
+            return (
+              <Reveal key={c.label} variant="scale" delay={i * 90} className="h-full">
+                <Tilt
+                  as="a"
+                  href={c.href}
+                  target={c.href.startsWith("http") ? "_blank" : undefined}
+                  rel="noreferrer"
+                  max={7}
+                  lift={16}
+                  className="group flex h-full min-h-36 flex-col justify-between bg-card p-6 transition-colors hover:bg-secondary"
+                >
+                  <div className="flex items-center justify-between">
+                    <span className="text-[10px] tracking-wider text-muted-foreground">{c.label}</span>
+                    <span className="text-muted-foreground transition-colors group-hover:text-accent">
+                      <Icon className="size-5" />
+                    </span>
+                  </div>
+                  <span className="layer-lift flex items-center gap-2.5 text-[12px] transition-colors group-hover:text-accent">
+                    <Arrow />
+                    {c.value}
+                  </span>
+                </Tilt>
+              </Reveal>
+            );
+          })}
         </div>
 
         <Reveal
