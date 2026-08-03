@@ -5,17 +5,8 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
- * Design system definition.
- *
- * The @theme inline block maps CSS custom properties to Tailwind utility
- * classes (e.g. --color-primary -> bg-primary, text-primary).
- *
- * The :root and .dark blocks define the actual color values using oklch.
- * All colors MUST use oklch format.
- *
- * To add a new semantic color:
- * 1. Add the variable to :root (light value) and .dark (dark value)
- * 2. Register it in @theme inline as --color-<name>: var(--<name>)
+ * Design system — Apple-inspired portfolio
+ * oklch colors, refined motion, grain, scroll-driven feel
  */
 
 @theme inline {
@@ -65,30 +56,30 @@
 }
 
 :root {
-  --radius: 0.5rem;
-  --background: oklch(0.955 0.001 0);
-  --foreground: oklch(0.18 0 0);
-  --card: oklch(0.975 0.001 0);
-  --card-foreground: oklch(0.18 0 0);
-  --popover: oklch(0.975 0.001 0);
-  --popover-foreground: oklch(0.18 0 0);
+  --radius: 0.625rem;
+  --background: oklch(0.97 0.002 95);
+  --foreground: oklch(0.16 0.01 260);
+  --card: oklch(0.99 0.001 95);
+  --card-foreground: oklch(0.16 0.01 260);
+  --popover: oklch(0.99 0.001 95);
+  --popover-foreground: oklch(0.16 0.01 260);
   --primary: oklch(0.145 0 0);
   --primary-foreground: oklch(0.98 0 0);
-  --secondary: oklch(0.93 0.001 0);
+  --secondary: oklch(0.94 0.004 95);
   --secondary-foreground: oklch(0.18 0 0);
-  --muted: oklch(0.93 0.001 0);
-  --muted-foreground: oklch(0.55 0.005 0);
-  --accent: oklch(0.63 0.21 39);
+  --muted: oklch(0.94 0.004 95);
+  --muted-foreground: oklch(0.48 0.01 260);
+  --accent: oklch(0.62 0.19 35);
   --accent-foreground: oklch(0.99 0 0);
-  --ink: oklch(0.11 0 0);
-  --ink-foreground: oklch(0.95 0 0);
+  --ink: oklch(0.09 0.005 260);
+  --ink-foreground: oklch(0.96 0.005 95);
   --font-mono-display: "JetBrains Mono", ui-monospace, monospace;
   --font-signature: "Mrs Saint Delafield", "Segoe Script", cursive;
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.984 0.003 247.858);
-  --border: oklch(0.88 0.002 0);
-  --input: oklch(0.88 0.002 0);
-  --ring: oklch(0.63 0.21 39);
+  --border: oklch(0.88 0.004 95);
+  --input: oklch(0.88 0.004 95);
+  --ring: oklch(0.62 0.19 35);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
@@ -144,19 +135,39 @@
     border-color: var(--color-border);
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-mono-display);
-    letter-spacing: -0.01em;
+    letter-spacing: -0.015em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Subtle film grain overlay (Apple-ish texture) */
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 180px;
   }
 }
 
 @utility eyebrow {
   font-size: 0.625rem;
-  letter-spacing: 0.32em;
+  letter-spacing: 0.28em;
   text-transform: uppercase;
   color: var(--muted-foreground);
+  font-weight: 500;
 }
 
 @utility signature {
@@ -167,75 +178,56 @@
 }
 
 @utility scene-3d {
-  perspective: 900px;
-  perspective-origin: 50% 50%;
+  perspective: 1100px;
+  perspective-origin: 50% 40%;
 }
 
 @utility tilt-3d {
   transform-style: preserve-3d;
   transition:
-    transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
-    background-color 0.3s ease;
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 0.35s ease,
+    box-shadow 0.35s ease;
   will-change: transform;
 }
 
 @utility layer-lift {
-  transform: translateZ(38px);
+  transform: translateZ(42px);
 }
 
-@utility grain {
-  position: relative;
-}
-
-@keyframes rise {
-  from {
-    opacity: 0;
-    transform: translateY(14px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@utility animate-rise {
-  animation: rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
-}
-
-/* ---------- Scroll reveal ---------- */
+/* ---------- Apple-like scroll reveal ---------- */
 @layer base {
   .reveal {
     opacity: 0;
     transition:
-      opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1),
-      transform 0.85s cubic-bezier(0.16, 1, 0.3, 1),
-      filter 0.85s ease;
-    will-change: opacity, transform;
+      opacity 1.1s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 1.1s cubic-bezier(0.16, 1, 0.3, 1),
+      filter 1.1s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: opacity, transform, filter;
   }
   .reveal-up {
-    transform: translate3d(0, 32px, 0);
+    transform: translate3d(0, 48px, 0);
   }
   .reveal-left {
-    transform: translate3d(-40px, 0, 0);
+    transform: translate3d(-56px, 0, 0);
   }
   .reveal-right {
-    transform: translate3d(40px, 0, 0);
+    transform: translate3d(56px, 0, 0);
   }
   .reveal-scale {
-    transform: scale(0.94) translate3d(0, 20px, 0);
+    transform: scale(0.92) translate3d(0, 28px, 0);
   }
   .reveal-blur {
-    transform: translate3d(0, 24px, 0);
-    filter: blur(10px);
+    transform: translate3d(0, 32px, 0);
+    filter: blur(12px);
+  }
+  .reveal-fade {
+    transform: none;
   }
   .reveal.is-revealed {
     opacity: 1;
     transform: none;
     filter: none;
-  }
-
-  html {
-    scroll-behavior: smooth;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -248,7 +240,26 @@
     html {
       scroll-behavior: auto;
     }
+    body::after {
+      display: none;
+    }
   }
+}
+
+/* Hero entrance */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@utility animate-rise {
+  animation: rise 1.15s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 @keyframes float-slow {
@@ -257,32 +268,32 @@
     transform: translateY(0) rotate(0deg);
   }
   50% {
-    transform: translateY(-14px) rotate(1.5deg);
+    transform: translateY(-18px) rotate(1.2deg);
   }
 }
 
 @utility animate-float {
-  animation: float-slow 9s ease-in-out infinite;
+  animation: float-slow 11s ease-in-out infinite;
 }
 
 @keyframes glow-pulse {
   0%,
   100% {
-    opacity: 0.55;
+    opacity: 0.5;
   }
   50% {
-    opacity: 0.95;
+    opacity: 0.92;
   }
 }
 
 @utility animate-glow {
-  animation: glow-pulse 5s ease-in-out infinite;
+  animation: glow-pulse 6s ease-in-out infinite;
 }
 
 @keyframes ink-draw {
   from {
     opacity: 0;
-    transform: translateY(18px) rotate(-3deg) scale(0.96);
+    transform: translateY(22px) rotate(-2.5deg) scale(0.94);
   }
   to {
     opacity: 1;
@@ -291,5 +302,52 @@
 }
 
 @utility animate-sign {
-  animation: ink-draw 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.25s both;
+  animation: ink-draw 1.55s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+}
+
+/* Sticky nav glass */
+.nav-glass {
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  transition: background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.nav-scrolled {
+  background-color: color-mix(in oklch, var(--background) 82%, transparent);
+  border-bottom: 1px solid color-mix(in oklch, var(--border) 70%, transparent);
+  box-shadow: 0 1px 0 color-mix(in oklch, var(--border) 40%, transparent);
+}
+
+/* Magnetic-ish button press */
+.btn-press {
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.25s ease;
+}
+.btn-press:hover {
+  transform: translateY(-2px) scale(1.02);
+}
+.btn-press:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* Project card subtle shine on hover */
+.card-shine {
+  position: relative;
+  overflow: hidden;
+}
+.card-shine::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 40%,
+    color-mix(in oklch, var(--ink-foreground) 6%, transparent) 50%,
+    transparent 60%
+  );
+  transform: translateX(-120%);
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+}
+.card-shine:hover::before {
+  transform: translateX(120%);
 }

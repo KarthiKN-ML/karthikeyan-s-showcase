@@ -74,3 +74,34 @@ export function useParallax() {
   };
   return { ref, onMouseMove: onMove, onMouseLeave: onLeave };
 }
+
+/** Scroll-linked progress (0 → 1) for a section. */
+export function useScrollProgress() {
+  const ref = useRef<HTMLElement>(null);
+
+  const bind = (el: HTMLElement | null) => {
+    if (!el) return;
+    (ref as React.MutableRefObject<HTMLElement | null>).current = el;
+
+    const update = () => {
+      const node = ref.current;
+      if (!node) return;
+      const rect = node.getBoundingClientRect();
+      const viewH = window.innerHeight;
+      // progress while section is in view
+      const raw = 1 - (rect.bottom / (viewH + rect.height));
+      const progress = Math.min(1, Math.max(0, raw));
+      node.style.setProperty("--scroll-progress", String(progress));
+    };
+
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    return () => {
+      window.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+    };
+  };
+
+  return { ref, bind };
+}
