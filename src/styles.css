@@ -201,3 +201,95 @@
 @utility animate-rise {
   animation: rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
+
+/* ---------- Scroll reveal ---------- */
+@layer base {
+  .reveal {
+    opacity: 0;
+    transition:
+      opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+      filter 0.85s ease;
+    will-change: opacity, transform;
+  }
+  .reveal-up {
+    transform: translate3d(0, 32px, 0);
+  }
+  .reveal-left {
+    transform: translate3d(-40px, 0, 0);
+  }
+  .reveal-right {
+    transform: translate3d(40px, 0, 0);
+  }
+  .reveal-scale {
+    transform: scale(0.94) translate3d(0, 20px, 0);
+  }
+  .reveal-blur {
+    transform: translate3d(0, 24px, 0);
+    filter: blur(10px);
+  }
+  .reveal.is-revealed {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal {
+      opacity: 1;
+      transform: none;
+      filter: none;
+      transition: none;
+    }
+    html {
+      scroll-behavior: auto;
+    }
+  }
+}
+
+@keyframes float-slow {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-14px) rotate(1.5deg);
+  }
+}
+
+@utility animate-float {
+  animation: float-slow 9s ease-in-out infinite;
+}
+
+@keyframes glow-pulse {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 0.95;
+  }
+}
+
+@utility animate-glow {
+  animation: glow-pulse 5s ease-in-out infinite;
+}
+
+@keyframes ink-draw {
+  from {
+    opacity: 0;
+    transform: translateY(18px) rotate(-3deg) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) rotate(0deg) scale(1);
+  }
+}
+
+@utility animate-sign {
+  animation: ink-draw 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.25s both;
+}
