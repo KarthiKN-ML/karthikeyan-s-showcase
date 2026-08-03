@@ -83,6 +83,7 @@
   --ink: oklch(0.11 0 0);
   --ink-foreground: oklch(0.95 0 0);
   --font-mono-display: "JetBrains Mono", ui-monospace, monospace;
+  --font-signature: "Mrs Saint Delafield", "Segoe Script", cursive;
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.984 0.003 247.858);
   --border: oklch(0.88 0.002 0);
@@ -152,10 +153,34 @@
 }
 
 @utility eyebrow {
-  font-size: 0.6875rem;
+  font-size: 0.625rem;
   letter-spacing: 0.32em;
   text-transform: uppercase;
   color: var(--muted-foreground);
+}
+
+@utility signature {
+  font-family: var(--font-signature);
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  line-height: 1;
+}
+
+@utility scene-3d {
+  perspective: 900px;
+  perspective-origin: 50% 50%;
+}
+
+@utility tilt-3d {
+  transform-style: preserve-3d;
+  transition:
+    transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 0.3s ease;
+  will-change: transform;
+}
+
+@utility layer-lift {
+  transform: translateZ(38px);
 }
 
 @utility grain {
