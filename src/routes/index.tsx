@@ -209,17 +209,14 @@ function Index() {
         <div className="relative z-10 flex flex-1 flex-col items-center justify-center px-6 pt-20 text-center">
           <p className="eyebrow animate-rise mb-5 text-ink-foreground/50">Karthikeyan Y</p>
           <h1
-            className="animate-rise max-w-4xl text-[1.65rem] font-light leading-[1.2] tracking-tight text-ink-foreground drop-shadow-[0_8px_32px_rgba(0,0,0,0.5)] sm:text-[2.4rem] md:text-[2.85rem] lg:text-[3.25rem]"
+            className="animate-rise max-w-5xl whitespace-nowrap text-[1.15rem] font-light leading-[1.2] tracking-tight text-ink-foreground drop-shadow-[0_8px_32px_rgba(0,0,0,0.5)] sm:text-[1.85rem] md:text-[2.35rem] lg:text-[2.85rem]"
             style={{
               transform:
                 "rotateX(calc(var(--my) * -2deg)) rotateY(calc(var(--mx) * 2.5deg)) translateZ(24px)",
             }}
           >
-            <span className="block sm:inline">Machine Learning</span>
-            <span className="mx-2 hidden text-ink-foreground/30 sm:inline">·</span>
-            <span className="block sm:inline">Deep Learning</span>
-            <span className="mx-2 hidden text-ink-foreground/30 sm:inline">·</span>
-            <span className="block sm:inline">Generative AI</span>
+            Machine Learning<span className="mx-2 text-ink-foreground/30">·</span>Deep Learning
+            <span className="mx-2 text-ink-foreground/30">·</span>Generative AI
           </h1>
           <p className="animate-rise mt-6 max-w-md text-[12px] leading-relaxed text-ink-foreground/60 sm:text-[13px]">
             I build models and AI systems that turn raw data into decisions — from classical ML to
@@ -242,10 +239,9 @@ function Index() {
           </div>
         </div>
 
-        {/* Bottom signature line */}
-        <div className="relative z-10 flex items-center justify-between px-6 pb-10 sm:px-10 lg:px-14">
-          <span className="signature text-2xl text-ink-foreground/80 sm:text-3xl">Karthikeyan Y</span>
-          <div className="hidden items-center gap-2 sm:flex">
+        {/* Scroll indicator only */}
+        <div className="relative z-10 flex justify-center px-6 pb-10">
+          <div className="flex flex-col items-center gap-2">
             <span className="text-[9px] tracking-[0.25em] text-ink-foreground/35 uppercase">
               Scroll
             </span>
@@ -273,10 +269,6 @@ function Index() {
             variant="left"
             className="text-[1.85rem] leading-[1.2] font-light tracking-tight sm:text-[2.15rem] lg:text-[2.35rem]"
           >
-            <span className="signature mr-2 text-[2.9rem] text-foreground sm:text-[3.5rem]">
-              Karthikeyan Y
-            </span>
-            <br />
             I turn <span className="text-muted-foreground">messy data</span> into models that hold
             up in production
           </Reveal>
@@ -481,7 +473,7 @@ function Index() {
           className="mt-20 flex flex-wrap items-center justify-between gap-4 border-t border-border pt-8 text-[10px] text-muted-foreground"
         >
           <span className="flex items-center gap-2.5">
-            <span className="signature text-2xl text-foreground">Karthikeyan Y</span>
+            <span className="text-sm font-medium tracking-tight text-foreground">Karthikeyan Y</span>
             <span className="opacity-60">— ML / AI Engineer</span>
           </span>
           <span>© {new Date().getFullYear()}</span>
