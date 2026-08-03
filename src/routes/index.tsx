@@ -145,7 +145,7 @@ function Index() {
         />
         <div className="flex-1" />
         <div
-          className="relative flex flex-col gap-6 px-6 pb-8 transition-transform duration-300 ease-out sm:flex-row sm:items-end sm:justify-between [transform-style:preserve-3d]"
+          className="relative flex flex-col gap-6 px-6 pb-14 transition-transform duration-300 ease-out sm:flex-row sm:items-end sm:justify-between [transform-style:preserve-3d]"
           style={{
             transform:
               "rotateX(calc(var(--my) * -4deg)) rotateY(calc(var(--mx) * 5deg)) translateZ(30px)",
@@ -155,7 +155,7 @@ function Index() {
             <p className="eyebrow animate-rise text-ink-foreground/60">
               Machine Learning · Deep Learning · Generative AI
             </p>
-            <h1 className="signature animate-sign mt-1 text-[2.6rem] leading-none text-ink-foreground drop-shadow-[0_10px_24px_rgba(0,0,0,0.6)] sm:text-[3.4rem]">
+            <h1 className="signature animate-sign mt-1 pb-2 pl-1 text-[2.2rem] leading-[1.15] text-ink-foreground drop-shadow-[0_10px_24px_rgba(0,0,0,0.6)] sm:text-[2.9rem]">
               Karthikeyan Y
             </h1>
           </div>
