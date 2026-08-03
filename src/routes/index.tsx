@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Tilt, useParallax } from "@/components/Tilt";
+import { Reveal } from "@/components/Reveal";
 import heroOrb from "@/assets/hero-orb.jpg";
 import flower from "@/assets/flower-mono.jpg";
 import dither from "@/assets/dither.jpg";
@@ -136,35 +137,36 @@ function Index() {
           alt="Silhouette facing a glowing ring of light"
           width={1920}
           height={1088}
-          className="absolute inset-0 size-full scale-110 object-cover opacity-90 transition-transform duration-300 ease-out"
+          className="animate-glow absolute inset-0 size-full scale-110 object-cover transition-transform duration-300 ease-out"
           style={{
             transform:
               "scale(1.12) translate3d(calc(var(--mx) * -22px), calc(var(--my) * -22px), 0)",
           }}
         />
+        <div className="flex-1" />
         <div
-          className="relative flex flex-1 flex-col items-center justify-center px-6 pt-24 text-center transition-transform duration-300 ease-out [transform-style:preserve-3d]"
+          className="relative flex flex-col gap-6 px-6 pb-8 transition-transform duration-300 ease-out sm:flex-row sm:items-end sm:justify-between [transform-style:preserve-3d]"
           style={{
             transform:
-              "rotateX(calc(var(--my) * -7deg)) rotateY(calc(var(--mx) * 9deg)) translateZ(40px)",
+              "rotateX(calc(var(--my) * -4deg)) rotateY(calc(var(--mx) * 5deg)) translateZ(30px)",
           }}
         >
-          <p className="eyebrow animate-rise text-ink-foreground/60">
-            Machine Learning · Deep Learning · Generative AI
-          </p>
-          <h1 className="signature animate-rise mt-4 text-[16vw] text-ink-foreground drop-shadow-[0_12px_30px_rgba(0,0,0,0.6)] sm:text-[10vw] lg:text-[7rem]">
-            Karthikeyan Y
-          </h1>
-        </div>
-        <div className="relative flex flex-col gap-5 px-6 pb-8 sm:flex-row sm:items-end sm:justify-between">
-          <p className="max-w-xs text-[11px] leading-relaxed text-ink-foreground/70">
+          <div>
+            <p className="eyebrow animate-rise text-ink-foreground/60">
+              Machine Learning · Deep Learning · Generative AI
+            </p>
+            <h1 className="signature animate-sign mt-1 text-[2.6rem] leading-none text-ink-foreground drop-shadow-[0_10px_24px_rgba(0,0,0,0.6)] sm:text-[3.4rem]">
+              Karthikeyan Y
+            </h1>
+          </div>
+          <p className="animate-rise max-w-xs text-[11px] leading-relaxed text-ink-foreground/70">
             I build models and AI systems that turn raw data into decisions — from classical ML to
             LLM-powered products.
           </p>
-          <div className="flex gap-2">
+          <div className="animate-rise flex gap-2">
             <a
               href="#projects"
-              className="flex items-center gap-2.5 rounded-lg bg-ink-foreground p-1 pr-4 text-[11px] font-medium text-ink transition-transform hover:-translate-y-0.5"
+              className="flex items-center gap-2.5 rounded-lg bg-ink-foreground p-1 pr-4 text-[11px] font-medium text-ink transition-transform duration-300 hover:-translate-y-0.5 hover:scale-105"
             >
               <Arrow />
               View projects
@@ -175,25 +177,36 @@ function Index() {
 
       {/* ABOUT */}
       <section id="about" className="relative overflow-hidden bg-background">
-        <img
-          src={flower}
-          alt="Monochrome x-ray style flower"
-          width={1200}
-          height={1200}
-          loading="lazy"
-          className="pointer-events-none ml-auto w-[70%] max-w-2xl object-contain mix-blend-multiply"
-        />
+        <Reveal variant="scale" className="ml-auto w-[70%] max-w-2xl">
+          <img
+            src={flower}
+            alt="Monochrome x-ray style flower"
+            width={1200}
+            height={1200}
+            loading="lazy"
+            className="animate-float pointer-events-none w-full object-contain mix-blend-multiply"
+          />
+        </Reveal>
         <div className="grid gap-12 px-6 pt-4 pb-24 sm:px-10 lg:grid-cols-2 lg:gap-24">
-          <h2 className="text-2xl leading-snug font-light tracking-tight sm:text-[1.9rem]">
+          <Reveal
+            as="h2"
+            variant="left"
+            className="text-2xl leading-snug font-light tracking-tight sm:text-[1.9rem]"
+          >
             <span className="signature mr-2 text-[2.6rem] sm:text-[3.2rem]">Karthikeyan Y</span>
             <br />I turn{" "}
             <span className="text-muted-foreground">messy data</span> into models that hold up in
             production
-          </h2>
-          <p className="self-end text-right text-base leading-snug font-light tracking-tight sm:text-[1.15rem]">
+          </Reveal>
+          <Reveal
+            as="p"
+            variant="right"
+            delay={120}
+            className="self-end text-right text-base leading-snug font-light tracking-tight sm:text-[1.15rem]"
+          >
             Python and SQL as the foundation, strong <span className="text-muted-foreground">DSA</span>{" "}
             fundamentals, and hands-on work across ML, deep learning, NLP and generative AI.
-          </p>
+          </Reveal>
         </div>
       </section>
 
