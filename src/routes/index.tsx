@@ -444,7 +444,7 @@ function Index() {
         >
           <span className="flex items-center gap-2.5">
             <span className="text-sm font-medium tracking-tight text-foreground">Karthikeyan Y</span>
-            <span className="opacity-60">— ML / AI Engineer</span>
+            <span className="opacity-60">— AI Engineer</span>
           </span>
           <span>© {new Date().getFullYear()}</span>
         </Reveal>
