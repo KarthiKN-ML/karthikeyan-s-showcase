@@ -197,7 +197,7 @@ function Index() {
         {/* Soft vignette */}
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink via-ink/25 to-ink/50" />
 
-        {/* Centered focus skills */}
+        {/* Centered focus */}
         <div className="relative z-10 flex flex-1 flex-col items-center justify-center px-6 pt-20 text-center">
           <p className="eyebrow animate-rise mb-4 text-ink-foreground/50">Karthikeyan Y</p>
           <h1
@@ -207,8 +207,7 @@ function Index() {
                 "rotateX(calc(var(--my) * -2deg)) rotateY(calc(var(--mx) * 2.5deg)) translateZ(24px)",
             }}
           >
-            Machine Learning<span className="mx-2.5 text-ink-foreground/35">·</span>Deep Learning
-            <span className="mx-2.5 text-ink-foreground/35">·</span>Generative AI
+            AI Engineer
           </h1>
           <p className="animate-rise mt-5 max-w-md text-[12px] leading-relaxed text-ink-foreground/60 sm:text-[13px]">
             I build models and AI systems that turn raw data into decisions — from classical ML to
