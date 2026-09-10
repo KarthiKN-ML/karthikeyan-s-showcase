@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Tilt, useParallax } from "@/components/Tilt";
 import { Reveal } from "@/components/Reveal";
+import { SkillsNetwork3D } from "@/components/SkillsNetwork3D";
 import heroOrb from "@/assets/hero-orb.jpg";
 import flower from "@/assets/flower-mono.jpg";
 import dither from "@/assets/dither.jpg";
@@ -181,7 +182,7 @@ function Index() {
         onMouseLeave={parallax.onMouseLeave}
         className="scene-3d relative flex min-h-[100dvh] flex-col justify-between overflow-hidden bg-ink [--mx:0] [--my:0]"
       >
-        {/* Background image with mouse + subtle scale */}
+        {/* Background image */}
         <img
           src={heroOrb}
           alt="Silhouette facing a glowing ring of light"
@@ -194,8 +195,11 @@ function Index() {
           }}
         />
 
+        {/* 3D skills neural network overlay */}
+        <SkillsNetwork3D />
+
         {/* Soft vignette */}
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink via-ink/25 to-ink/50" />
+        <div className="pointer-events-none absolute inset-0 z-[2] bg-gradient-to-t from-ink via-ink/30 to-ink/55" />
 
         {/* Centered focus */}
         <div className="relative z-10 flex flex-1 flex-col items-center justify-center px-6 pt-20 text-center">
