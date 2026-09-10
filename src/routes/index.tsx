@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Tilt, useParallax } from "@/components/Tilt";
 import { Reveal } from "@/components/Reveal";
 import { SkillsNetwork3D } from "@/components/SkillsNetwork3D";
+import { SectionAmbient } from "@/components/SectionAmbient";
 import heroOrb from "@/assets/hero-orb.jpg";
 import flower from "@/assets/flower-mono.jpg";
 import dither from "@/assets/dither.jpg";
@@ -175,14 +176,13 @@ function Index() {
     <main id="top" className="overflow-x-hidden">
       <Nav />
 
-      {/* ═══════════════ HERO ═══════════════ */}
+      {/* ═══════════════ HERO (unchanged) ═══════════════ */}
       <section
         ref={parallax.ref}
         onMouseMove={parallax.onMouseMove}
         onMouseLeave={parallax.onMouseLeave}
         className="scene-3d relative flex min-h-[100dvh] flex-col justify-between overflow-hidden bg-ink [--mx:0] [--my:0]"
       >
-        {/* Background image */}
         <img
           src={heroOrb}
           alt="Silhouette facing a glowing ring of light"
@@ -195,13 +195,10 @@ function Index() {
           }}
         />
 
-        {/* 3D skills neural network overlay */}
         <SkillsNetwork3D />
 
-        {/* Soft vignette */}
         <div className="pointer-events-none absolute inset-0 z-[2] bg-gradient-to-t from-ink via-ink/30 to-ink/55" />
 
-        {/* Centered focus */}
         <div className="relative z-10 flex flex-1 flex-col items-center justify-center px-6 pt-20 text-center">
           <p className="eyebrow animate-rise mb-4 text-ink-foreground/50">Karthikeyan Y</p>
           <h1
@@ -219,7 +216,6 @@ function Index() {
           </p>
         </div>
 
-        {/* Scroll indicator only */}
         <div className="relative z-10 flex justify-center px-6 pb-10">
           <div className="flex flex-col items-center gap-2">
             <span className="text-[9px] tracking-[0.25em] text-ink-foreground/35 uppercase">
@@ -232,7 +228,9 @@ function Index() {
 
       {/* ═══════════════ ABOUT ═══════════════ */}
       <section id="about" className="relative overflow-hidden bg-background">
-        <Reveal variant="scale" className="pointer-events-none ml-auto w-[72%] max-w-2xl opacity-90">
+        <SectionAmbient variant="light" />
+
+        <Reveal variant="scale" className="pointer-events-none relative z-[1] ml-auto w-[72%] max-w-2xl opacity-90">
           <img
             src={flower}
             alt="Monochrome x-ray style flower"
@@ -257,7 +255,7 @@ function Index() {
             as="p"
             variant="right"
             delay={140}
-            className="self-end max-w-md text-right text-[15px] leading-relaxed font-light tracking-tight text-foreground/80 sm:text-[1.05rem]"
+            className="self-end max-w-md rounded-2xl border border-border/60 bg-card/70 p-6 text-right text-[15px] leading-relaxed font-light tracking-tight text-foreground/80 shadow-sm backdrop-blur-sm sm:text-[1.05rem]"
           >
             Python and SQL as the foundation, strong{" "}
             <span className="text-muted-foreground">DSA</span> fundamentals, and hands-on work
@@ -267,191 +265,203 @@ function Index() {
       </section>
 
       {/* ═══════════════ SKILLS ═══════════════ */}
-      <section id="skills" className="border-t border-border bg-secondary px-6 py-24 sm:px-10 lg:px-14">
-        <Reveal as="p" className="eyebrow">
-          Skills
-        </Reveal>
-        <Reveal
-          as="h2"
-          variant="blur"
-          delay={80}
-          className="mt-4 max-w-lg text-2xl font-light tracking-tight sm:text-[1.85rem]"
-        >
-          Tools I use to ship reliable models
-        </Reveal>
+      <section id="skills" className="relative overflow-hidden border-t border-border bg-secondary px-6 py-24 sm:px-10 lg:px-14">
+        <SectionAmbient variant="warm" />
 
-        <div className="scene-3d mt-12 grid gap-px overflow-hidden rounded-2xl bg-border sm:grid-cols-2 lg:grid-cols-3">
-          {SKILLS.map((s, i) => (
-            <Reveal key={s.code} variant="scale" delay={i * 65} className="h-full">
+        <div className="relative z-10">
+          <Reveal as="p" className="eyebrow">
+            Skills
+          </Reveal>
+          <Reveal
+            as="h2"
+            variant="blur"
+            delay={80}
+            className="mt-4 max-w-lg text-2xl font-light tracking-tight sm:text-[1.85rem]"
+          >
+            Tools I use to ship reliable models
+          </Reveal>
+
+          <div className="scene-3d mt-12 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {SKILLS.map((s, i) => (
+              <Reveal key={s.code} variant="scale" delay={i * 65} className="h-full">
+                <Tilt
+                  as="article"
+                  max={8}
+                  lift={18}
+                  className="section-card group flex h-full min-h-[11rem] flex-col justify-between rounded-2xl border border-border/70 bg-card/80 p-6 hover:bg-card"
+                >
+                  <span className="text-[10px] tracking-wider text-muted-foreground">{s.code}</span>
+                  <div className="layer-lift">
+                    <h3 className="text-lg font-light tracking-tight transition-colors group-hover:text-accent">
+                      {s.name}
+                    </h3>
+                    <p className="mt-2 text-[11px] leading-relaxed text-muted-foreground">{s.note}</p>
+                  </div>
+                </Tilt>
+              </Reveal>
+            ))}
+
+            <Reveal variant="scale" delay={SKILLS.length * 65} className="h-full">
               <Tilt
                 as="article"
                 max={8}
                 lift={18}
-                className="group flex h-full min-h-[11rem] flex-col justify-between bg-card p-6 transition-colors hover:bg-background"
+                className="section-card relative flex h-full min-h-[11rem] items-end overflow-hidden rounded-2xl border border-ink/20 bg-ink p-6"
               >
-                <span className="text-[10px] tracking-wider text-muted-foreground">{s.code}</span>
-                <div className="layer-lift">
-                  <h3 className="text-lg font-light tracking-tight transition-colors group-hover:text-accent">
-                    {s.name}
-                  </h3>
-                  <p className="mt-2 text-[11px] leading-relaxed text-muted-foreground">{s.note}</p>
-                </div>
+                <img
+                  src={dither}
+                  alt="Dithered halftone texture"
+                  width={1024}
+                  height={768}
+                  loading="lazy"
+                  className="animate-glow absolute inset-0 size-full object-cover opacity-80"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/30 to-transparent" />
+                <p className="layer-lift relative text-[11px] leading-relaxed text-ink-foreground/90">
+                  Always learning — currently deepening LLM evaluation and agentic workflows.
+                </p>
               </Tilt>
             </Reveal>
-          ))}
-
-          <Reveal variant="scale" delay={SKILLS.length * 65} className="h-full">
-            <Tilt
-              as="article"
-              max={8}
-              lift={18}
-              className="relative flex h-full min-h-[11rem] items-end overflow-hidden bg-ink p-6"
-            >
-              <img
-                src={dither}
-                alt="Dithered halftone texture"
-                width={1024}
-                height={768}
-                loading="lazy"
-                className="animate-glow absolute inset-0 size-full object-cover opacity-80"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/30 to-transparent" />
-              <p className="layer-lift relative text-[11px] leading-relaxed text-ink-foreground/90">
-                Always learning — currently deepening LLM evaluation and agentic workflows.
-              </p>
-            </Tilt>
-          </Reveal>
+          </div>
         </div>
       </section>
 
       {/* ═══════════════ PROJECTS ═══════════════ */}
-      <section id="projects" className="bg-ink px-6 py-28 sm:px-10 lg:px-14">
-        <Reveal as="p" className="eyebrow text-ink-foreground/45">
-          Selected work
-        </Reveal>
-        <Reveal
-          as="h2"
-          variant="blur"
-          delay={100}
-          className="mt-5 max-w-2xl text-[1.85rem] leading-snug font-light tracking-tight text-ink-foreground sm:text-[2.15rem]"
-        >
-          Machine learning projects that solve real problems
-        </Reveal>
+      <section id="projects" className="relative overflow-hidden bg-ink px-6 py-28 sm:px-10 lg:px-14">
+        <SectionAmbient variant="ink" />
 
-        <div className="scene-3d mt-14 grid gap-px overflow-hidden rounded-2xl bg-ink-foreground/10 lg:grid-cols-2">
-          {PROJECTS.map((p, i) => (
-            <Reveal
-              key={p.id}
-              variant={i % 2 === 0 ? "left" : "right"}
-              delay={(i % 2) * 100}
-              className="h-full"
-            >
-              <Tilt
-                as="article"
-                max={6}
-                lift={16}
-                className="card-shine group h-full bg-ink p-8 transition-colors hover:bg-ink-foreground/[0.04]"
+        <div className="relative z-10">
+          <Reveal as="p" className="eyebrow text-ink-foreground/45">
+            Selected work
+          </Reveal>
+          <Reveal
+            as="h2"
+            variant="blur"
+            delay={100}
+            className="mt-5 max-w-2xl text-[1.85rem] leading-snug font-light tracking-tight text-ink-foreground sm:text-[2.15rem]"
+          >
+            Machine learning projects that solve real problems
+          </Reveal>
+
+          <div className="scene-3d mt-14 grid gap-3 lg:grid-cols-2">
+            {PROJECTS.map((p, i) => (
+              <Reveal
+                key={p.id}
+                variant={i % 2 === 0 ? "left" : "right"}
+                delay={(i % 2) * 100}
+                className="h-full"
               >
-                <div className="flex items-baseline justify-between layer-lift">
-                  <span className="text-3xl font-extralight text-ink-foreground/20">{p.id}</span>
-                  <span className="rounded-full border border-ink-foreground/15 px-2.5 py-0.5 text-[9px] tracking-wide text-accent">
-                    {p.stack}
-                  </span>
-                </div>
-                <h3 className="mt-8 text-xl font-light tracking-tight text-ink-foreground transition-colors group-hover:text-accent">
-                  {p.title}
-                </h3>
-                <p className="mt-3 max-w-md text-[12px] leading-relaxed text-ink-foreground/55">
-                  {p.body}
-                </p>
-                <a
-                  href="https://github.com/KarthiKN-ML"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="mt-8 inline-flex items-center gap-2.5 text-[11px] text-ink-foreground/60 transition-all duration-300 group-hover:gap-3 group-hover:text-ink-foreground"
+                <Tilt
+                  as="article"
+                  max={6}
+                  lift={16}
+                  className="card-shine section-card group h-full rounded-2xl border border-ink-foreground/10 bg-ink/60 p-8 backdrop-blur-sm hover:bg-ink-foreground/[0.05]"
                 >
-                  <Arrow />
-                  View code
-                </a>
-              </Tilt>
-            </Reveal>
-          ))}
+                  <div className="flex items-baseline justify-between layer-lift">
+                    <span className="text-3xl font-extralight text-ink-foreground/20">{p.id}</span>
+                    <span className="rounded-full border border-ink-foreground/15 bg-ink-foreground/5 px-2.5 py-0.5 text-[9px] tracking-wide text-accent">
+                      {p.stack}
+                    </span>
+                  </div>
+                  <h3 className="mt-8 text-xl font-light tracking-tight text-ink-foreground transition-colors group-hover:text-accent">
+                    {p.title}
+                  </h3>
+                  <p className="mt-3 max-w-md text-[12px] leading-relaxed text-ink-foreground/55">
+                    {p.body}
+                  </p>
+                  <a
+                    href="https://github.com/KarthiKN-ML"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="mt-8 inline-flex items-center gap-2.5 text-[11px] text-ink-foreground/60 transition-all duration-300 group-hover:gap-3 group-hover:text-ink-foreground"
+                  >
+                    <Arrow />
+                    View code
+                  </a>
+                </Tilt>
+              </Reveal>
+            ))}
+          </div>
         </div>
       </section>
 
       {/* ═══════════════ CONTACT ═══════════════ */}
-      <section id="contact" className="border-t border-border bg-background px-6 py-28 sm:px-10 lg:px-14">
-        <Reveal as="p" className="eyebrow">
-          Contact
-        </Reveal>
-        <Reveal
-          as="h2"
-          variant="blur"
-          delay={100}
-          className="mt-5 max-w-2xl text-[1.85rem] leading-snug font-light tracking-tight sm:text-[2.2rem]"
-        >
-          Open to ML / AI roles and interesting collaborations
-        </Reveal>
+      <section id="contact" className="relative overflow-hidden border-t border-border bg-background px-6 py-28 sm:px-10 lg:px-14">
+        <SectionAmbient variant="light" />
 
-        <div className="scene-3d mt-12 grid gap-px overflow-hidden rounded-2xl bg-border sm:grid-cols-3">
-          {[
-            {
-              label: "Email",
-              value: "karthikeyan80555@gmail.com",
-              href: "mailto:karthikeyan80555@gmail.com",
-              icon: IconEmail,
-            },
-            {
-              label: "LinkedIn",
-              value: "linkedin.com/in/karthikeyanyamini",
-              href: "https://www.linkedin.com/in/karthikeyanyamini/",
-              icon: IconLinkedIn,
-            },
-            {
-              label: "GitHub",
-              value: "github.com/KarthiKN-ML",
-              href: "https://github.com/KarthiKN-ML",
-              icon: IconGitHub,
-            },
-          ].map((c, i) => {
-            const Icon = c.icon;
-            return (
-              <Reveal key={c.label} variant="scale" delay={i * 90} className="h-full">
-                <Tilt
-                  as="a"
-                  href={c.href}
-                  target={c.href.startsWith("http") ? "_blank" : undefined}
-                  rel="noreferrer"
-                  max={7}
-                  lift={16}
-                  className="group flex h-full min-h-36 flex-col justify-between bg-card p-6 transition-colors hover:bg-secondary"
-                >
-                  <div className="flex items-center justify-between">
-                    <span className="text-[10px] tracking-wider text-muted-foreground">{c.label}</span>
-                    <span className="text-muted-foreground transition-colors group-hover:text-accent">
-                      <Icon className="size-5" />
+        <div className="relative z-10">
+          <Reveal as="p" className="eyebrow">
+            Contact
+          </Reveal>
+          <Reveal
+            as="h2"
+            variant="blur"
+            delay={100}
+            className="mt-5 max-w-2xl text-[1.85rem] leading-snug font-light tracking-tight sm:text-[2.2rem]"
+          >
+            Open to ML / AI roles and interesting collaborations
+          </Reveal>
+
+          <div className="scene-3d mt-12 grid gap-3 sm:grid-cols-3">
+            {[
+              {
+                label: "Email",
+                value: "karthikeyan80555@gmail.com",
+                href: "mailto:karthikeyan80555@gmail.com",
+                icon: IconEmail,
+              },
+              {
+                label: "LinkedIn",
+                value: "linkedin.com/in/karthikeyanyamini",
+                href: "https://www.linkedin.com/in/karthikeyanyamini/",
+                icon: IconLinkedIn,
+              },
+              {
+                label: "GitHub",
+                value: "github.com/KarthiKN-ML",
+                href: "https://github.com/KarthiKN-ML",
+                icon: IconGitHub,
+              },
+            ].map((c, i) => {
+              const Icon = c.icon;
+              return (
+                <Reveal key={c.label} variant="scale" delay={i * 90} className="h-full">
+                  <Tilt
+                    as="a"
+                    href={c.href}
+                    target={c.href.startsWith("http") ? "_blank" : undefined}
+                    rel="noreferrer"
+                    max={7}
+                    lift={16}
+                    className="section-card group flex h-full min-h-36 flex-col justify-between rounded-2xl border border-border/70 bg-card/80 p-6 hover:bg-card"
+                  >
+                    <div className="flex items-center justify-between">
+                      <span className="text-[10px] tracking-wider text-muted-foreground">{c.label}</span>
+                      <span className="text-muted-foreground transition-colors group-hover:text-accent">
+                        <Icon className="size-5" />
+                      </span>
+                    </div>
+                    <span className="layer-lift flex items-center gap-2.5 text-[12px] transition-colors group-hover:text-accent">
+                      <Arrow />
+                      {c.value}
                     </span>
-                  </div>
-                  <span className="layer-lift flex items-center gap-2.5 text-[12px] transition-colors group-hover:text-accent">
-                    <Arrow />
-                    {c.value}
-                  </span>
-                </Tilt>
-              </Reveal>
-            );
-          })}
-        </div>
+                  </Tilt>
+                </Reveal>
+              );
+            })}
+          </div>
 
-        <Reveal
-          as="footer"
-          className="mt-20 flex flex-wrap items-center justify-between gap-4 border-t border-border pt-8 text-[10px] text-muted-foreground"
-        >
-          <span className="flex items-center gap-2.5">
-            <span className="text-sm font-medium tracking-tight text-foreground">Karthikeyan Y</span>
-            <span className="opacity-60">— AI Engineer</span>
-          </span>
-          <span>© {new Date().getFullYear()}</span>
-        </Reveal>
+          <Reveal
+            as="footer"
+            className="mt-20 flex flex-wrap items-center justify-between gap-4 border-t border-border pt-8 text-[10px] text-muted-foreground"
+          >
+            <span className="flex items-center gap-2.5">
+              <span className="text-sm font-medium tracking-tight text-foreground">Karthikeyan Y</span>
+              <span className="opacity-60">— AI Engineer</span>
+            </span>
+            <span>© {new Date().getFullYear()}</span>
+          </Reveal>
+        </div>
       </section>
     </main>
   );
