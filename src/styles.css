@@ -53,6 +53,7 @@
   --color-ink: var(--ink);
   --color-ink-foreground: var(--ink-foreground);
   --font-mono: var(--font-mono-display);
+  --font-sans: var(--font-sans-display);
 }
 
 :root {
@@ -73,8 +74,9 @@
   --accent-foreground: oklch(0.99 0 0);
   --ink: oklch(0.09 0.005 260);
   --ink-foreground: oklch(0.96 0.005 95);
-  --font-mono-display: "JetBrains Mono", ui-monospace, monospace;
-  --font-signature: "Mrs Saint Delafield", "Segoe Script", cursive;
+  --font-sans-display: "Share Tech Mono", monospace;
+  --font-mono-display: "Share Tech Mono", monospace;
+  --font-signature: "Share Tech Mono", monospace;
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.984 0.003 247.858);
   --border: oklch(0.88 0.004 95);
@@ -142,7 +144,7 @@
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
-    font-family: var(--font-mono-display);
+    font-family: "Share Tech Mono", monospace;
     letter-spacing: -0.015em;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
