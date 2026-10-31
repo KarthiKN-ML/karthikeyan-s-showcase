@@ -26,7 +26,7 @@ type Node3 = {
   r: number;
 };
 
-/** Perspective-projected neural network of skill nodes — pure canvas, no deps. */
+/** Perspective-projected skill network — lighter + pauses off-screen. */
 export function SkillsNetwork3D() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -34,7 +34,7 @@ export function SkillsNetwork3D() {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext("2d", { alpha: true });
     if (!ctx) return;
 
     let raf = 0;
@@ -43,15 +43,17 @@ export function SkillsNetwork3D() {
     let mx = 0;
     let my = 0;
     let reduced = false;
+    let visible = true;
 
     const nodes: Node3[] = [];
-    const NODE_COUNT = 48;
+    const NODE_COUNT = 32;
     const FOCAL = 420;
 
     const resize = () => {
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
       w = canvas.clientWidth;
       h = canvas.clientHeight;
+      if (w < 2 || h < 2) return;
       canvas.width = Math.floor(w * dpr);
       canvas.height = Math.floor(h * dpr);
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
@@ -65,17 +67,16 @@ export function SkillsNetwork3D() {
           x: (Math.random() - 0.5) * 520,
           y: (Math.random() - 0.5) * 360,
           z: Math.random() * 500 + 80,
-          vx: (Math.random() - 0.5) * 0.18,
-          vy: (Math.random() - 0.5) * 0.18,
-          vz: (Math.random() - 0.5) * 0.12,
+          vx: (Math.random() - 0.5) * 0.15,
+          vy: (Math.random() - 0.5) * 0.15,
+          vz: (Math.random() - 0.5) * 0.1,
           label: isLabel ? LABELS[i] : undefined,
-          r: isLabel ? 2.4 : 1.2 + Math.random() * 1.4,
+          r: isLabel ? 2.4 : 1.2 + Math.random() * 1.2,
         });
       }
     };
 
     const project = (n: Node3, rotY: number, rotX: number) => {
-      // rotate around origin for gentle 3D motion
       const cosY = Math.cos(rotY);
       const sinY = Math.sin(rotY);
       const cosX = Math.cos(rotX);
@@ -85,11 +86,9 @@ export function SkillsNetwork3D() {
       let y = n.y;
       let z = n.z;
 
-      // yaw
       const xz = x * cosY - z * sinY;
       z = x * sinY + z * cosY;
       x = xz;
-      // pitch
       const yz = y * cosX - z * sinX;
       z = y * sinX + z * cosX;
       y = yz;
@@ -107,17 +106,16 @@ export function SkillsNetwork3D() {
 
     const draw = (now: number) => {
       raf = requestAnimationFrame(draw);
-      if (reduced) return;
-
-      const dt = Math.min(32, now - t0) / 16;
+      if (reduced || !visible) return;
+      if (now - t0 < 32) return;
+      const dt = Math.min(48, now - t0) / 16;
       t0 = now;
 
-      const rotY = (now * 0.00012) + mx * 0.35;
+      const rotY = now * 0.00012 + mx * 0.35;
       const rotX = my * 0.25;
 
       ctx.clearRect(0, 0, w, h);
 
-      // update
       for (const n of nodes) {
         n.x += n.vx * dt;
         n.y += n.vy * dt;
@@ -130,7 +128,6 @@ export function SkillsNetwork3D() {
       const projected = nodes.map((n) => ({ n, p: project(n, rotY, rotX) }));
       projected.sort((a, b) => b.p.depth - a.p.depth);
 
-      // connections
       for (let i = 0; i < projected.length; i++) {
         for (let j = i + 1; j < projected.length; j++) {
           const a = projected[i];
@@ -139,39 +136,35 @@ export function SkillsNetwork3D() {
           const dy = a.n.y - b.n.y;
           const dz = a.n.z - b.n.z;
           const dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
-          if (dist > 140) continue;
-          const alpha = (1 - dist / 140) * 0.22 * Math.min(a.p.scale, b.p.scale);
+          if (dist > 130) continue;
+          const alpha = (1 - dist / 130) * 0.18 * Math.min(a.p.scale, b.p.scale);
           ctx.beginPath();
           ctx.strokeStyle = `rgba(255, 160, 90, ${alpha})`;
-          ctx.lineWidth = 0.8;
+          ctx.lineWidth = 0.7;
           ctx.moveTo(a.p.sx, a.p.sy);
           ctx.lineTo(b.p.sx, b.p.sy);
           ctx.stroke();
         }
       }
 
-      // nodes + labels
       for (const { n, p } of projected) {
         const r = n.r * p.scale * 1.6;
-        const glow = n.label ? 0.55 : 0.35;
+        const glow = n.label ? 0.5 : 0.3;
 
-        const g = ctx.createRadialGradient(p.sx, p.sy, 0, p.sx, p.sy, r * 4);
-        g.addColorStop(0, `rgba(255, 140, 60, ${glow * p.scale})`);
-        g.addColorStop(1, "rgba(255, 140, 60, 0)");
-        ctx.fillStyle = g;
         ctx.beginPath();
-        ctx.arc(p.sx, p.sy, r * 4, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 140, 60, ${glow * 0.25 * p.scale})`;
+        ctx.arc(p.sx, p.sy, r * 3.2, 0, Math.PI * 2);
         ctx.fill();
 
         ctx.beginPath();
         ctx.fillStyle = n.label
           ? `rgba(255, 200, 140, ${0.85 * p.scale})`
-          : `rgba(255, 180, 120, ${0.55 * p.scale})`;
+          : `rgba(255, 180, 120, ${0.5 * p.scale})`;
         ctx.arc(p.sx, p.sy, r, 0, Math.PI * 2);
         ctx.fill();
 
         if (n.label && p.scale > 0.55) {
-          ctx.font = `${Math.max(9, 11 * p.scale)}px "JetBrains Mono", ui-monospace, monospace`;
+          ctx.font = `${Math.max(9, 11 * p.scale)}px "Share Tech Mono", monospace`;
           ctx.fillStyle = `rgba(255, 235, 210, ${0.55 * p.scale})`;
           ctx.textAlign = "center";
           ctx.textBaseline = "bottom";
@@ -195,17 +188,31 @@ export function SkillsNetwork3D() {
     reduced = mq.matches;
     const onMq = () => {
       reduced = mq.matches;
-      if (!reduced) {
+      if (!reduced && visible) {
         t0 = performance.now();
+        cancelAnimationFrame(raf);
         raf = requestAnimationFrame(draw);
       }
     };
     mq.addEventListener("change", onMq);
 
+    const io = new IntersectionObserver(
+      (entries) => {
+        visible = entries.some((e) => e.isIntersecting);
+        if (visible && !reduced) {
+          t0 = performance.now();
+          cancelAnimationFrame(raf);
+          raf = requestAnimationFrame(draw);
+        }
+      },
+      { rootMargin: "40px", threshold: 0.01 },
+    );
+    io.observe(canvas);
+
     resize();
     seed();
-    window.addEventListener("resize", resize);
-    canvas.addEventListener("mousemove", onMove);
+    window.addEventListener("resize", resize, { passive: true });
+    canvas.addEventListener("mousemove", onMove, { passive: true });
     canvas.addEventListener("mouseleave", onLeave);
 
     if (!reduced) raf = requestAnimationFrame(draw);
@@ -216,6 +223,7 @@ export function SkillsNetwork3D() {
       canvas.removeEventListener("mousemove", onMove);
       canvas.removeEventListener("mouseleave", onLeave);
       mq.removeEventListener("change", onMq);
+      io.disconnect();
     };
   }, []);
 
